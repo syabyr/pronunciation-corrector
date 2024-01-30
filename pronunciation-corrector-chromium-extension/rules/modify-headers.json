@@ -1,0 +1,40 @@
+[
+  {
+    "id": 1,
+    "priority": 100,
+    "action": {
+      "type": "modifyHeaders",
+      "requestHeaders": [
+        {
+          "header": "Referer",
+          "operation": "set",
+          "value": "https://www.youdao.com/"
+        }
+      ]
+    },
+    "condition": {
+      "urlFilter": "https://www.youdao.com/*",
+      "requestDomains": ["www.youdao.com"],
+      "resourceTypes": ["sub_frame"]
+    }
+  },
+  {
+    "id": 2,
+    "priority": 101,
+    "action": {
+      "type": "modifyHeaders",
+      "requestHeaders": [
+        {
+          "header": "Referer",
+          "operation": "set",
+          "value": "https://www.youdao.com/"
+        }
+      ]
+    },
+    "condition": {
+      "urlFilter": "https://dict.youdao.com/*",
+      "requestDomains": ["dict.youdao.com"],
+      "resourceTypes": ["sub_frame"]
+    }
+  }
+]
