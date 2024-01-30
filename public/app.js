@@ -66,7 +66,6 @@ async function init() {
   vocabularies = await loadVocabularies();
   vocabularyName = localStorage.getItem('vocabularyName');
   if (vocabularyName) {
-    selectVocabularyElement.value = vocabularyName;
     vocabulary = await loadVocabulary(vocabularyName);
   }
 
@@ -75,28 +74,40 @@ async function init() {
 
 
 async function loadVocabularies() {
-  let res = await fetch(`config.json`);
-  let vocabularies = await res.json();
-  let html = ""
-  for (const [key, value] of Object.entries(vocabularies)) {
-    console.log(`${key}: ${value}`);
-    html += `<option value="${key}">${value}</option>`
-  }
-  selectVocabularyElement.innerHTML = html;
-  return vocabularies;
+
 }
 
 
 async function loadVocabulary(name) {
-  let vocabulary = localStorage.getItem(`vocabulary-${name}`);
-  if (vocabulary === null) {
-    let res = await fetch(`vocabulary/${name}.json`);
-    vocabulary = await res.json();
-    vocabulary.progress = 0;
-  } else {
-    vocabulary = JSON.parse(vocabulary);
-  }
-  return vocabulary;
+}
+
+
+
+async function onFileUpload() {
+  console.log("onFileUpload");
+  var fileInput = document.getElementById('fileUpload');
+      var file = fileInput.files[0];
+      //console.log(file);
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        var fileContent = e.target.result;
+        console.log(fileContent);
+        // process fileContent by line
+        let lines = fileContent.split('\n');
+        words = [];
+        for (let line of lines) {
+          let word = line.split(',')[0];
+          words.push({word: word});
+        }
+        vocabulary = {words: words, progress: 0};
+
+
+        //vocabulary = JSON.parse(fileContent);
+        vocabulary.progress = 0;
+        localStorage.setItem('vocabularyName', vocabulary);
+        console.log("hello");
+      }
+      reader.readAsText(file);
 }
 
 function playBtnClicked() {
@@ -122,7 +133,7 @@ function switchType() {
 async function play() {
   if (shouldStop) return;
   if (vocabularyName === null) {
-    await onSelectVocabularyChange();
+    vocabularyName = "upload";
   }
 
   let word = vocabulary.words[vocabulary.progress].word;
@@ -150,13 +161,6 @@ async function playEnded() {
     progressBar.max = vocabulary.words.length;
   }
   setTimeout(play, interval);
-}
-
-
-async function onSelectVocabularyChange() {
-  vocabularyName = selectVocabularyElement.value;
-  vocabulary = await loadVocabulary(vocabularyName);
-  localStorage.setItem('vocabularyName', vocabularyName);
 }
 
 function onWhichVoiceChange() {

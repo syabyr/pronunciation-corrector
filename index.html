@@ -5,9 +5,9 @@
     <title>发音纠正器</title>
     <meta name="theme-color" content="#ffffff">
     <meta name="description" content="纠正你的英文发音">
-    <link rel="stylesheet" href="/public/lib/bulma.min.css">
-    <link rel="stylesheet" href="/public/main.css">
-    <script src="/public/app.js"></script>
+    <link rel="stylesheet" href="./public/lib/bulma.min.css">
+    <link rel="stylesheet" href="./public/main.css">
+    <script src="./public/app.js"></script>
 </head>
 
 <body>
@@ -82,14 +82,11 @@
                     </div>
                     <div class="column">
                         <div class="field">
-                            <label class="label">当前词库</label>
-                            <div class="control">
-                                <div class="select">
-                                    <select id="selectVocabulary" onchange="onSelectVocabularyChange()">
-                                        <option>加载词库列表中...</option>
-                                    </select>
-                                </div>
-                            </div>
+                            <label class="label">上传词库</label>
+                            <div class="custom-button">
+                                <label for="fileUpload">选择文件</label>
+                                <input type="file" name="fileUpload" id="fileUpload" class="file-upload" onchange="onFileUpload()">
+                              </div>
                         </div>
 
                         <div class="field">
