@@ -23,3 +23,11 @@
 ## 其他
 1. 由 [jingjingxyk](https://github.com/jingjingxyk/) 开发的[配套 Chrome 扩展](https://github.com/jingjingxyk/pronunciation-corrector-chromium-extension)。
 2. 《中国程序员容易发音错误的单词》[词库来源](https://github.com/shimohq/chinese-programmer-wrong-pronunciation)。
+
+## 部署
+
+### python
+
+```
+python -m http.server ./
+```
